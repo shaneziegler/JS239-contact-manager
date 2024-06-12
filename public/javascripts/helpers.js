@@ -13,7 +13,7 @@ function validateEmail(email) {
     return false;
   }
 
-  let emailRegExp = new RegExp("(^\\w+|\\d+)\\@(\\w+|\\d+).\\w{3}$");  // Not very good
+  let emailRegExp = new RegExp("(^\\w+|\\d+)\\@(\\w+|\\d+).\\w{3}$");  // Not very good email regexp
 
   return emailRegExp.test(email);
 }

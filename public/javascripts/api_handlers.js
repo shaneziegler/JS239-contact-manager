@@ -28,6 +28,7 @@ export class APIHandler {
       const data = await fetch(uri, fetchOptions).then(response => {
         if (!response.ok) {
           const error = new Error(response.statusText);
+          alert('Error communicating with API Server!');
           error.status = response.status;
           throw error;
         }
@@ -52,30 +53,11 @@ export class APIHandler {
     this.onContactListChanged(this.contacts)
   }
 
-  async updateContact() {
-    // put method
-    // http://localhost:3000/api/contacts/:id
-    // Accepts JSON or query string as request body. Preserves previous values of attributes that aren't present.
-
-        /*
-    Parameter
-      Field	Type	Description
-        id	Integer	
-        Unique ID of the contact
-
-        full_name	String	
-        Required: Full name of the contact
-
-        email	String	
-        Email of the contact.
-
-        phone_number	String	
-        Phone number of the contact.
-
-        tags	String	
-        Comma-separated list of tags associated with the contact.
-    */
-
+  async editContact(contactInfo) {
+      let result = await APIHandler.fetchResource(`http://localhost:3000/api/contacts/${contactInfo.id}`, 'PUT', contactInfo)
+      console.log(`ID updated: ${result.id}`);
+      this.contacts = await this.getAllContacts();
+      this.onContactListChanged(this.contacts)
   }
 
 

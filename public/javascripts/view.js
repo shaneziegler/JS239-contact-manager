@@ -25,10 +25,12 @@ export class View {
     this.#addAddContactListener();
     this.#addTagFilterListener();
     this.#addNewTagButtonListener();
+    this.#addEditContactListener()
 
     this.tagsList = [];
     this.filterValue = "";
     this.searchString = "";
+    this.contacts = [];
   }
     
   displayContacts(contacts) {
@@ -57,6 +59,7 @@ export class View {
 
     this.searchInput.value = "";
     this.searchString = "";
+    this.contacts = contacts.slice();
   }
 
 
@@ -79,7 +82,7 @@ export class View {
 
 
   // Bind event listeners
-  bindAddContact(handler) {
+  bindAddOrEditContact(addContactHandler, editContactHandler) {
     this.addContactButtons.addEventListener('click', event => {
       event.preventDefault()
 
@@ -89,6 +92,7 @@ export class View {
       } else if (event.target.value === "Submit") {
         this.#resetNewContactFormErrors();
 
+        let id = this.addContactSection.querySelector('#contact-id').innerHTML
         let name = this.addContactSection.querySelector('#full-name').value;
         let email = this.addContactSection.querySelector('#email').value;
         let phoneNumber = this.addContactSection.querySelector('#phone-number').value;
@@ -123,27 +127,25 @@ export class View {
           phone_number: phoneNumber,
           tags: tagsArray.join(",")
         };
-    
-        handler(contactInfo);
+      
+        let mode = this.addContactSection.querySelector('#create-contact-form-mode').textContent;
+
+        if (mode === "ADD") {
+          addContactHandler(contactInfo);
+        } else if (mode === "EDIT") {
+          contactInfo.id = id;
+          editContactHandler(contactInfo);
+        } else {
+          console.log('Something is wrong, not in ADD or EDIT mode!')
+          throw new error('Something is wrong, not in ADD or EDIT mode!');
+        }
 
         this.addContactSection.classList.add("hide");
         this.searchSection.classList.remove("hide");
       }
-    })
+    });
   }
 
-  bindEditContact(handler) {
-    //!!!!!!!!!!!
-    this.form.addEventListener('submit', event => {
-      event.preventDefault()
-  
-      if (this._todoText) {
-        handler(this._todoText)
-        this._resetInput()
-      }
-    })
-  }
-  
   bindDeleteContact(handler) {
     this.main.addEventListener('click', event => {
       event.preventDefault()
@@ -157,7 +159,7 @@ export class View {
           handler(id);
         }
       }
-    })
+    });
   }
 
   #addSearchInputListener() {
@@ -168,7 +170,7 @@ export class View {
       this.searchString = this.searchInput.value.trim().toLowerCase();
 
       this.#showOnlySelectedContacts(this.searchString, this.filterValue);
-    })
+    });
   }
 
   #showOnlySelectedContacts(searchString, filterTag) {
@@ -201,22 +203,69 @@ export class View {
       event.preventDefault();
 
       // Reset inputs and clear tags selections
-      let inputs = this.addContactSection.querySelectorAll("input[type=text]");
-      inputs.forEach(input => {
-        input.value = "";
-      });
-
-      let options = this.addContactSection.querySelectorAll('option');
-      options.forEach(option => {
-        option.selected = false;
-      });
-      options[0].selected = true;
+      this.addContactSection.querySelector('h1').textContent = "Create Contact";
+      this.addContactSection.querySelector('#create-contact-form-mode').textContent = "ADD";
+      this.#resetContactFormInputsAndTags();
 
       this.#resetNewContactFormErrors();
 
       this.searchSection.classList.add("hide");
       this.addContactSection.classList.remove("hide");
     })
+  }
+
+  #addEditContactListener() {    // For the Edit button on contacts
+    this.main.addEventListener('click', event => {
+      event.preventDefault()
+
+      if (event.target.value === "Edit") {
+        let div = event.target.closest('div');
+        let id = div.dataset.id;
+
+        // Re-use the add contact form, but change and fill for editing
+        // Reset inputs and clear tags selections
+        this.addContactSection.querySelector('h1').textContent = "Edit Contact";
+        this.addContactSection.querySelector('#create-contact-form-mode').textContent = "EDIT";
+
+        this.#resetContactFormInputsAndTags();
+
+        this.#resetNewContactFormErrors();
+
+        // Populate "add contact" form for editing with contact info
+        let contact = this.contacts.filter(contactObj => Number(contactObj.id) === Number(id))[0];
+        this.addContactSection.querySelector('#contact-id').innerHTML = contact.id;
+        this.addContactSection.querySelector('#full-name').value = contact.full_name;
+        this.addContactSection.querySelector('#email').value = contact.email;
+        this.addContactSection.querySelector('#phone-number').value = contact.phone_number;
+
+        if (Array.isArray(contact.tags)) {
+          let options = this.addContactSection.querySelectorAll('option');
+          options.forEach(option => {
+            if (contact.tags.includes(option.value)) {
+              option.selected = true;
+            }
+          });
+          options[0].selected = false;
+        }
+
+        this.searchSection.classList.add("hide");
+        this.addContactSection.classList.remove("hide");
+        window.scrollTo(0, 0);
+      }
+    });
+  }
+
+  #resetContactFormInputsAndTags() {
+    let inputs = this.addContactSection.querySelectorAll("input[type=text]");
+    inputs.forEach(input => {
+      input.value = "";
+    });
+
+    let options = this.addContactSection.querySelectorAll('option');
+    options.forEach(option => {
+      option.selected = false;
+    });
+    options[0].selected = true;
   }
 
   #resetNewContactFormErrors() {
@@ -245,9 +294,8 @@ export class View {
       event.preventDefault();
 
       if (event.target.tagName === 'A') {
-        // debugger;
         this.filterValue = event.target.dataset.tag;
-        // if (this.filterValue === "clear") this.filterValue = "";
+
         this.searchString = this.searchInput.value.trim().toLowerCase();
         this.#showOnlySelectedContacts(this.searchString, this.filterValue);
       }

@@ -42,7 +42,7 @@ class Manager {
   }
 
   bind() {
-    this.view.bindAddContact(this.handleAddContact);
+    this.view.bindAddOrEditContact(this.handleAddContact, this.handleEditContact);
     this.view.bindDeleteContact(this.handleDeleteContact);
     this.model.bindContactListChanged(this.onContactListChanged)
   }
