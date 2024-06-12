@@ -5,11 +5,6 @@ export class APIHandler {
     this.contacts = [];
   }
 
-  // async buildContacts() {
-  //   let contactsArray = this.getAllContacts();
-  //   return contactsArray;
-  // }
-
   bindContactListChanged(callback) {
     this.onContactListChanged = callback
   }

@@ -20,7 +20,7 @@ class Manager {
     this.init();
   }
 
-  async init() {
+  async init() {  // Draw initial contacts on load
     this.model.contacts = await this.model.getAllContacts();
     this.onContactListChanged(this.model.contacts);
   }

@@ -51,6 +51,16 @@ export class View {
     this.main.innerHTML = this.displayContactsTemplate({ contacts : contacts });
     this.tagBox.innerHTML = this.tagSelectBoxTemplate({ tags : this.tagsList});
 
+    this.#addContactTagListener();
+
+    this.#createTagFilterLinks();
+
+    this.searchInput.value = "";
+    this.searchString = "";
+  }
+
+
+  #createTagFilterLinks() {
     // Display possible tag filters
     let p = this.tagFilter.querySelector('p');
     p.innerHTML = "Filter by tag: ";
@@ -63,12 +73,10 @@ export class View {
     });
 
     let newTag = tagNode.cloneNode(true);
-    newTag.innerHTML = `<a href="clear">CLEAR TAG FILTER</a>`;
+    newTag.innerHTML = `<a href="CLEAR_TAGS">CLEAR TAG FILTER</a>`;
     p.insertAdjacentElement("beforeend", newTag);
-
-    this.searchInput.value = "";
-    this.searchString = "";
   }
+
 
   // Bind event listeners
   bindAddContact(handler) {
@@ -146,7 +154,6 @@ export class View {
         if (confirmDelete) {
           let div = event.target.closest('div');
           let id = div.dataset.id;
-          console.log(id);
           handler(id);
         }
       }
@@ -167,16 +174,16 @@ export class View {
   #showOnlySelectedContacts(searchString, filterTag) {
     let contactDivs = this.main.querySelectorAll('.contact');
 
-    contactDivs.forEach(div => {
+    contactDivs.forEach(div => {  // Unhide all contacts
       div.classList.remove('hide');
     });
 
-    contactDivs.forEach(div => {
+    contactDivs.forEach(div => {  // Hide contacts not matching search string
       if (!div.querySelector('h1').textContent.toLowerCase().includes(searchString)) {
         div.classList.add('hide');
       }
       
-      if (filterTag !== "") {
+      if (filterTag !== "") {  // Hide contacts not matching tag filter
         let tags = div.querySelectorAll('a');
         let tagsList = [];
         tags.forEach(tag => {
@@ -220,20 +227,34 @@ export class View {
     })
   }
 
-  #addTagFilterListener() {    // Listener for tag filtering
+  #addTagFilterListener() {    // Listener for tag filtering near search bar
     this.tagFilter.addEventListener('click', event => {
       event.preventDefault();
 
       if (event.target.tagName === 'A') {
         this.filterValue = event.target.getAttribute('href');
-        if (this.filterValue === "clear") this.filterValue = "";
+        if (this.filterValue === "CLEAR_TAGS") this.filterValue = "";
         this.searchString = this.searchInput.value.trim().toLowerCase();
         this.#showOnlySelectedContacts(this.searchString, this.filterValue);
       }
     })
   }
 
-  #addNewTagButtonListener() {    // Listener for add new tag button click
+  #addContactTagListener() {    // Listener for tag filtering on individual contacts
+    this.main.addEventListener('click', event => {
+      event.preventDefault();
+
+      if (event.target.tagName === 'A') {
+        // debugger;
+        this.filterValue = event.target.dataset.tag;
+        // if (this.filterValue === "clear") this.filterValue = "";
+        this.searchString = this.searchInput.value.trim().toLowerCase();
+        this.#showOnlySelectedContacts(this.searchString, this.filterValue);
+      }
+    })
+  }
+
+  #addNewTagButtonListener() {    // Listener for add new tag button click on new contact form
       document.querySelector('#new-tag-button').addEventListener('click', event => {
       event.preventDefault();
       let tagInput = document.querySelector('#new-tag-input');

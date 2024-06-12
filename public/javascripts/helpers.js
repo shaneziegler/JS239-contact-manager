@@ -12,9 +12,9 @@ function validateEmail(email) {
     return false;
   }
 
-  let pattern = new RegExp("(^\\w+|\\d+)\\@(\\w+|\\d+).\\w{3}$");
+  let emailRegExp = new RegExp("(^\\w+|\\d+)\\@(\\w+|\\d+).\\w{3}$");
 
-  return pattern.test(email);
+  return emailRegExp.test(email);
 }
 
 function validateName(name) {

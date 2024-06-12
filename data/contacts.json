@@ -33,5 +33,19 @@
     "email": "shanedb@gmail.com",
     "tags": "cats,boots",
     "id": 5
+  },
+  {
+    "full_name": "Shane Ziegler",
+    "phone_number": "6122907472",
+    "email": "shanedb@gmail.com",
+    "tags": "work,friend,cats,boots",
+    "id": 6
+  },
+  {
+    "full_name": "Shane Ziegler",
+    "phone_number": "6122907472",
+    "email": "shanedb@gmail.com",
+    "tags": "new tag",
+    "id": 7
   }
 ]
