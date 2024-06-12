@@ -8,10 +8,10 @@
   },
   {
     "id": 2,
-    "full_name": "Victor Reyes",
+    "full_name": "Victor Reyesx",
     "email": "vpr@example.com",
-    "phone_number": "09876543210",
-    "tags": "work,friend"
+    "phone_number": "0987654329",
+    "tags": "123"
   },
   {
     "id": 3,
@@ -72,13 +72,6 @@
   {
     "full_name": "Shane Ziegler",
     "phone_number": "6122907472",
-    "email": "a@aaaaa",
-    "tags": "",
-    "id": 11
-  },
-  {
-    "full_name": "Shane Ziegler",
-    "phone_number": "6122907472",
     "email": "shanedb@gmail.com",
     "tags": "",
     "id": 12
@@ -89,5 +82,19 @@
     "email": "a@a.aaa",
     "tags": "",
     "id": 13
+  },
+  {
+    "full_name": "Shane Ziegler",
+    "phone_number": "6122907472",
+    "email": "shanedb@gmail.com",
+    "tags": "DD",
+    "id": 15
+  },
+  {
+    "full_name": "Shane Ziegler",
+    "phone_number": "6122907472",
+    "email": "shanedb@gmail.com",
+    "tags": "fff",
+    "id": 17
   }
 ]
