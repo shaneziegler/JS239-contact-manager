@@ -8,11 +8,12 @@ function validatePhoneNumber(phoneNumber) {
 }
 
 function validateEmail(email) {
+  email = email.trim();
   if (email.includes(" ")) {
     return false;
   }
 
-  let emailRegExp = new RegExp("(^\\w+|\\d+)\\@(\\w+|\\d+).\\w{3}$");
+  let emailRegExp = new RegExp("(^\\w+|\\d+)\\@(\\w+|\\d+).\\w{3}$");  // Not very good
 
   return emailRegExp.test(email);
 }
