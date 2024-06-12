@@ -5,10 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src="/javascripts/jquery.js"></script>
-  <script src="/javascripts/handlebars.js"></script>
+  <script src="javascripts/jquery.js"></script>
+  <script src="javascripts/handlebars.js"></script>
+  <link rel="stylesheet" type="text/css" href="stylesheets/whitespace-reset.css" /> 
+  <link rel="stylesheet" type="text/css" href="stylesheets/border-box-rest.css" /> 
+  <link rel="stylesheet" type="text/css" href="stylesheets/contact.css" /> 
+  <script type="module"src="javascripts/app.js"></script>
 </head>
 <body>
+  <header>
+    <h1>Contact Manager</h1>
+  </header>
+  <section id="search">
+    <form action="" method="">
+      <fieldset>
+        <input type="submit" value="Add Contact" id="add-contact-button" formaction="/add">
+        <input type="text" name="search-input" id="search-input" placeholder="Search">
+      </fieldset>
+    </form>
+    <container id="tag-filter">
+      <p>Filter by tag: </p>
+    </container>
+  </section>
 
+  <section id="add-contact" class="hide">
+    <h1>Create Contact</h1>
+    <p></p>
+    <form>
+      <fieldset>
+        <label for="full-name">Full name:</label><span id="bad-name" class="hide-validator-error">Enter a valid name!</span>
+        <input type="text" name="full-name" id="full-name">
+        <label for="email">Email address:</label><span id="bad-email" class="hide-validator-error">Enter a valid email address!</span>
+        <input type="text" name="email" id="email">
+        <label for="phone-number">Telephone number:</label><span id="bad-phone-number" class="hide-validator-error">Enter a valid 10-digit phone number!</span>
+        <input type="text" name="phone-number" id="phone-number">
+      </fieldset>
+      <fieldset id="select-tags">
+        <label for="tags">Choose Tags:</label>
+        <div id="tag-box"></div>
+      </fieldset>
+      <label for="new-tag-input" id="new-tag-label">Add New Tag:</label>
+      <input type="text" name="new-tag-input" id="new-tag-input"><input type="button" value="Add Tag" id="new-tag-button">
+      <fieldset id="add-contact-buttons">
+        <input type="button" value="Submit">
+        <input type="button" value="Cancel">
+      </fieldset>
+    </form>
+  </section>
+
+  <main>
+  </main>
+
+  <script id="display-contacts" type="text/x-handlebars">
+    {{#each contacts}}
+    <div data-id="{{id}}" class="contact">
+      <h1>{{full_name}}</h1>
+      <p></p>
+      <p><strong>Phone Number:</strong></p>
+      <p>{{phone_number}}</p>
+      <p><strong>Email:</strong></p>
+      <p>{{email}}</p>
+      <p><strong>Tags:</strong></p>
+      {{> tagTemplate}}
+      <p></p>
+      <form action="" method="">
+        <fieldset>
+          <input type="submit" value="Edit" formaction="/edit">
+          <input type="submit" value="Delete" formaction="/del">
+        </fieldset>
+      </form>
+    </div>
+    {{/each}}
+  </script>
+
+  <script id="tagTemplate" type="text/x-handlebars">
+    {{#if tags}}
+      {{#each tags}}
+        <a href="#" data-tag="{{this}}">{{this}}</a>
+      {{/each}}
+    {{else}}
+      Not tagged
+    {{/if}}
+  </script>
+
+  <script id="tagSelectBoxTemplate" type="text/x-handlebars">
+    <select name="tags" multiple size="8">
+      <option value="" disabled selected>Select One or More</option>
+      {{#each tags}}
+      <option>{{this}}</option>
+      {{/each}}
+    </select>
+  </script>
 </body>
 </html>

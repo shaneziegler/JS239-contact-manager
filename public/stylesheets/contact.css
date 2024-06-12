@@ -1,0 +1,165 @@
+body {
+  background-color: blue;
+  margin: 5px;
+  width: 1200px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: inherit;
+}
+
+div.contact {
+  border-radius: 10px;
+  border-color: black;
+  border-width: 5px;
+  padding: 12px;
+  background-color: lightgray;
+  width: 50%;
+  margin: 10px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+div h1 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+header {
+  background-color: purple;
+  text-align: center;
+  width: 100%;
+  height: 150px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+header h1 {
+  font-size: 48px;
+  color: white;
+  padding-top: 48px;
+}
+
+fieldset {
+  padding: 5px 5px;
+}
+
+[type=submit] {
+  background-color: lightblue;
+  padding: 4px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+#search {
+  width: 100%;
+  height: 120px;
+  background-color: gray;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+
+#add-contact-button {
+  font-size: 32px;
+  padding: 10px;
+}
+
+#search-input {
+  font-size: 24px;
+  width: 350px;
+  border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  padding: 5px;
+}
+
+#add-contact {
+  /* display: block; */
+  border-color: black;
+  border-width: 2px;
+  background-color: lightgray;
+  width: 75%;
+  height: 600px;
+  font-size: 20px;
+}
+
+#add-contact h1 {
+  font-size: 36px;
+  text-align: center;
+  color: black;
+}
+
+#add-contact input[type="text"] {
+  display: block;
+  width: 500px;
+  padding: 3px;
+  font-size: 20px;
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+#add-contact input[type="submit"] {
+  font-size: 24px;
+}
+
+#select-tags {
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+#add-contact-buttons input[type="button"] {
+  font-size: 24px;
+  background-color: lightblue;
+  padding: 4px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.hide-validator-error {
+  display: none;
+}
+
+.show-validator-error {
+  display: inline;
+  color: red;
+}
+
+#tag-filter {
+  display: inline-block;
+  padding-left: 20px;
+  padding-bottom:  20px;
+  padding-top: 6px;
+}
+
+.filter-tag {
+  color: purple;
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+.filter-tag a {
+  color: purple;
+  text-decoration: none;
+}
+
+#new-tag-input {
+  max-width: 150px;
+  font-size: 20px;
+  margin-left: 400px;
+}
+
+#new-tag-label {
+  font-size: 16px;
+  margin-left: 400px;
+}
+
+#new-tag-button {
+  font-size: 20px;
+  margin-left: 400px;
+  padding: 5px;
+}
