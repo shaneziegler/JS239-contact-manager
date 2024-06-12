@@ -19,5 +19,19 @@
     "email": "ph@example.com",
     "phone_number": "54321098761",
     "tags": null
+  },
+  {
+    "full_name": "Shane Ziegler",
+    "phone_number": "6122907472",
+    "email": "shanedb@gmail.com",
+    "tags": "work",
+    "id": 4
+  },
+  {
+    "full_name": "Shane Ziegler",
+    "phone_number": "6122907472",
+    "email": "shanedb@gmail.com",
+    "tags": "cats,boots",
+    "id": 5
   }
 ]
